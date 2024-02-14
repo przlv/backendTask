@@ -1,13 +1,14 @@
 import datetime
+from typing import Dict, List
 
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import NoResultFound
-from db.models.shift_assignment_model import ProductDataModel
-from schemas.shift_assignment import ProductData
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
-from typing import List, Dict
+from sqlalchemy import select
+from sqlalchemy.exc import NoResultFound
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from db.models.shift_assignment_model import ProductDataModel
+from schemas.shift_assignment import ProductData
 
 
 async def get_products_on_shift(key_shift: int, db: AsyncSession) -> List[Dict]:

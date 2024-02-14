@@ -1,16 +1,14 @@
+from datetime import date, datetime
+from typing import List, Optional
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from crud.products import get_products_on_shift
+from crud.shift_assignment import (change_shift_task, create_shift_task,
+                                   get_filtered_shift_tasks, get_shift_task)
 from db.database import get_db
 from schemas import ShiftTask, ShiftTaskChange
-from typing import List, Optional
-from crud.shift_assignment import (
-    create_shift_task,
-    get_shift_task,
-    change_shift_task,
-    get_filtered_shift_tasks,
-)
-from crud.products import get_products_on_shift
-from datetime import date, datetime
 
 router_shiftAssignment = APIRouter(prefix="/shiftAssignment", tags=["Shift Assignment"])
 

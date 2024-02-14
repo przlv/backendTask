@@ -1,9 +1,11 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from crud.products import aggregation_product, create_products
 from db.database import get_db
-from typing import List
 from schemas.shift_assignment import ProductData
-from crud.products import create_products, aggregation_product
 
 router_products = APIRouter(prefix="/Products", tags=["Products"])
 

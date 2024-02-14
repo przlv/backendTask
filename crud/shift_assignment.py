@@ -1,12 +1,14 @@
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import NoResultFound
-from db.models.shift_assignment_model import ShiftTaskModel
-from schemas.shift_assignment import ShiftTask, ShiftTaskChange
-from typing import List, Dict, Sequence, Optional
+from datetime import date, datetime
+from typing import Dict, List, Optional, Sequence
+
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
-from datetime import datetime, date
+from sqlalchemy import select
+from sqlalchemy.exc import NoResultFound
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from db.models.shift_assignment_model import ShiftTaskModel
+from schemas.shift_assignment import ShiftTask, ShiftTaskChange
 
 
 async def create_shift_task(json_tasks: List[ShiftTask], db: AsyncSession) -> None:

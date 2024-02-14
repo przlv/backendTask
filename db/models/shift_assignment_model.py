@@ -1,12 +1,5 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    Boolean,
-    DateTime,
-    UniqueConstraint,
-    Date,
-)
+from sqlalchemy import (Boolean, Column, Date, DateTime, Integer, String,
+                        UniqueConstraint)
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()

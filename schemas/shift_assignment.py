@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field, Extra
-from typing import Optional
 from datetime import date, datetime
+from typing import Optional
+
+from pydantic import BaseModel, Extra, Field
 
 
 class ShiftTask(BaseModel):
