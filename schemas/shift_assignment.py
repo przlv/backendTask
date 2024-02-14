@@ -5,7 +5,6 @@ from datetime import date, datetime
 
 class ShiftTask(BaseModel):
     closing_status: bool = Field(..., validation_alias='СтатусЗакрытия')
-    closed_at: Optional[datetime] = None
     shift_task_representation: str = Field(..., validation_alias='ПредставлениеЗаданияНаСмену')
     work_center: str = Field(..., validation_alias='Линия')
     shift: str = Field(..., validation_alias='Смена')
@@ -33,3 +32,21 @@ class ProductData(BaseModel):
     class Config:
         allow_population_by_field_name = True
         extra = Extra.forbid
+
+
+class ShiftTaskChange(BaseModel):
+    closing_status: Optional[bool] = Field(None)
+    shift_task_representation: Optional[str] = Field(None)
+    work_center: Optional[str] = Field(None)
+    shift: Optional[str] = Field(None)
+    brigade: Optional[str] = Field(None)
+    batch_number: Optional[int] = Field(None)
+    batch_date: Optional[date] = Field(None)
+    nomenclature: Optional[str] = Field(None)
+    ekn_code: Optional[str] = Field(None)
+    rc_identifier: Optional[str] = Field(None)
+    shift_start_datetime: Optional[datetime] = Field(None)
+    shift_end_datetime: Optional[datetime] = Field(None)
+
+    # class Config:
+        # extra = Extra.forbid
