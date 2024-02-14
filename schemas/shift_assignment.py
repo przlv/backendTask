@@ -5,7 +5,9 @@ from datetime import date, datetime
 
 class ShiftTask(BaseModel):
     closing_status: bool = Field(..., validation_alias='СтатусЗакрытия')
-    shift_task_representation: str = Field(..., validation_alias='ПредставлениеЗаданияНаСмену')
+    shift_task_representation: str = Field(...,
+                                           validation_alias='Представление'
+                                                            'ЗаданияНаСмену')
     work_center: str = Field(..., validation_alias='Линия')
     shift: str = Field(..., validation_alias='Смена')
     brigade: str = Field(..., validation_alias='Бригада')
@@ -14,8 +16,12 @@ class ShiftTask(BaseModel):
     nomenclature: str = Field(..., validation_alias='Номенклатура')
     ekn_code: str = Field(..., validation_alias='КодЕКН')
     rc_identifier: str = Field(..., validation_alias='ИдентификаторРЦ')
-    shift_start_datetime: datetime = Field(..., validation_alias='ДатаВремяНачалаСмены')
-    shift_end_datetime: datetime = Field(..., validation_alias='ДатаВремяОкончанияСмены')
+    shift_start_datetime: datetime = Field(...,
+                                           validation_alias='ДатаВремя'
+                                                            'НачалаСмены')
+    shift_end_datetime: datetime = Field(...,
+                                         validation_alias='ДатаВремя'
+                                                          'ОкончанияСмены')
 
     class Config:
         allow_population_by_field_name = True

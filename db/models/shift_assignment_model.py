@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, UniqueConstraint, Date
+from sqlalchemy import (Column, Integer, String,
+                        Boolean, DateTime,
+                        UniqueConstraint, Date)
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -34,4 +35,6 @@ class ShiftTaskModel(Base):
     shift_start_datetime = Column(DateTime(timezone=True))
     shift_end_datetime = Column(DateTime(timezone=True))
 
-    __table_args__ = (UniqueConstraint('batch_number', 'batch_date', name='unique_batch_number_date'),)
+    __table_args__ = (UniqueConstraint('batch_number',
+                                       'batch_date',
+                                       name='unique_batch_number_date'),)

@@ -14,11 +14,15 @@ router_shiftAssignment = APIRouter(
 
 
 @router_shiftAssignment.get('/getShiftTask/{key_task}')
-async def get_shift_assignment(key_task: int, db: AsyncSession = Depends(get_db)):
+async def get_shift_assignment(key_task: int,
+                               db: AsyncSession = Depends(get_db)):
     try:
         required_task = await get_shift_task(key_task, db)
-        required_products = await get_products_on_shift(required_task.get('batch_number'), db)
-        list_products = [product.get('unique_product_code') for product in required_products]
+        required_products = await get_products_on_shift(
+            required_task.get('batch_number'), db
+        )
+        list_products = [product.get('unique_product_code')
+                         for product in required_products]
         return {
             **required_task,
             'products_code_on_shift': list_products
