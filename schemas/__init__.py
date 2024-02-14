@@ -1,1 +1,1 @@
-from shift_assignment import *
+from schemas.shift_assignment import *
