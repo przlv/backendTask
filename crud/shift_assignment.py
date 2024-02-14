@@ -16,7 +16,7 @@ async def create_shift_task(json_tasks: List[ShiftTask], db: AsyncSession) -> No
                 new_record = ShiftTaskModel(**task.dict())
                 db.add(new_record)
             await db.commit()
-        except Exception as e:
+        except Exception:
             await db.rollback()
             raise
 
