@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 from typing import Optional
 from datetime import date, datetime
 
@@ -7,7 +7,7 @@ class ShiftTask(BaseModel):
     closing_status: bool = Field(..., validation_alias='СтатусЗакрытия')
     closed_at: Optional[datetime] = None
     shift_task_representation: str = Field(..., validation_alias='ПредставлениеЗаданияНаСмену')
-    work_center: str = Field(..., validation_alias='РабочийЦентр')
+    work_center: str = Field(..., validation_alias='Линия')
     shift: str = Field(..., validation_alias='Смена')
     brigade: str = Field(..., validation_alias='Бригада')
     batch_number: int = Field(..., validation_alias='НомерПартии')
@@ -20,6 +20,7 @@ class ShiftTask(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
+        extra = Extra.forbid
 
 
 class ProductData(BaseModel):
@@ -31,3 +32,4 @@ class ProductData(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
+        extra = Extra.forbid
