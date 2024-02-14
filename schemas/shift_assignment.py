@@ -25,7 +25,7 @@ class ShiftTask(BaseModel):
 class ProductData(BaseModel):
     unique_product_code: str = Field(..., alias='УникальныйКодПродукта')
     batch_number: int = Field(..., alias='НомерПартии')
-    batch_date: datetime = Field(..., alias='ДатаПартии')
+    batch_date: date = Field(..., alias='ДатаПартии')
     is_aggregated: Optional[bool] = None
     aggregated_at: Optional[datetime] = None
 
@@ -48,5 +48,5 @@ class ShiftTaskChange(BaseModel):
     shift_start_datetime: Optional[datetime] = Field(None)
     shift_end_datetime: Optional[datetime] = Field(None)
 
-    # class Config:
-        # extra = Extra.forbid
+    class Config:
+        extra = Extra.forbid

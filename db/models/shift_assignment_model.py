@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, UniqueConstraint, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -11,7 +11,7 @@ class ProductDataModel(Base):
     id = Column(Integer, primary_key=True)
     unique_product_code = Column(String, unique=True)
     batch_number = Column(Integer)
-    batch_date = Column(DateTime)
+    batch_date = Column(Date)
     is_aggregated = Column(Boolean, default=False)
     aggregated_at = Column(DateTime, nullable=True)
 
@@ -27,7 +27,7 @@ class ShiftTaskModel(Base):
     shift = Column(String)
     brigade = Column(String)
     batch_number = Column(Integer)
-    batch_date = Column(DateTime)
+    batch_date = Column(Date)
     nomenclature = Column(String)
     ekn_code = Column(String)
     rc_identifier = Column(String)
