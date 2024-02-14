@@ -3,14 +3,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import NoResultFound
 from db.models.shift_assignment_model import ShiftTaskModel
 from schemas.shift_assignment import ShiftTask, ShiftTaskChange
-from typing import List, Dict
+from typing import List, Dict, Sequence, Optional
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
-from datetime import datetime
+from datetime import datetime, date
 
 
 async def create_shift_task(json_tasks: List[ShiftTask], db: AsyncSession) -> None:
-
     async with db.begin():
         try:
             for task in json_tasks:
@@ -50,3 +49,41 @@ async def change_shift_task(new_data_task: ShiftTaskChange, key_task: int, db: A
         except NoResultFound:
             await db.rollback()
             raise HTTPException(status_code=404, detail="Task not found")
+
+
+async def get_filtered_shift_tasks(
+        db: AsyncSession,
+        closing_status: Optional[bool] = None,
+        batch_number: Optional[int] = None,
+        batch_date: Optional[date] = None,
+        shift_start_datetime: Optional[datetime] = None,
+        shift_end_datetime: Optional[datetime] = None,
+        offset: Optional[int] = None,
+        limit: Optional[int] = None) -> Sequence[ShiftTaskModel]:
+
+    query = select(ShiftTaskModel)
+
+    if closing_status is not None:
+        query = query.filter(ShiftTaskModel.closing_status == closing_status)
+    if batch_number is not None:
+        query = query.filter(ShiftTaskModel.batch_number == batch_number)
+    if batch_date is not None:
+        query = query.filter(ShiftTaskModel.batch_date == batch_date)
+    if shift_start_datetime is not None:
+        query = query.filter(ShiftTaskModel.shift_start_datetime >= shift_start_datetime)
+    if shift_end_datetime is not None:
+        query = query.filter(ShiftTaskModel.shift_end_datetime <= shift_end_datetime)
+
+    if offset is not None:
+        query = query.offset(offset)
+    if limit is not None:
+        query = query.limit(limit)
+
+    try:
+        result = await db.execute(query)
+        tasks = result.scalars().all()
+        if not tasks:
+            raise HTTPException(status_code=404, detail="Task not found")
+        return tasks
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
