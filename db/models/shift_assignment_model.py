@@ -1,13 +1,19 @@
-from sqlalchemy import (Column, Integer, String,
-                        Boolean, DateTime,
-                        UniqueConstraint, Date)
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Boolean,
+    DateTime,
+    UniqueConstraint,
+    Date,
+)
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
 class ProductDataModel(Base):
-    __tablename__ = 'product_data'
+    __tablename__ = "product_data"
 
     id = Column(Integer, primary_key=True)
     unique_product_code = Column(String, unique=True)
@@ -18,7 +24,7 @@ class ProductDataModel(Base):
 
 
 class ShiftTaskModel(Base):
-    __tablename__ = 'shift_tasks'
+    __tablename__ = "shift_tasks"
 
     id = Column(Integer, primary_key=True)
     closing_status = Column(Boolean)
@@ -35,6 +41,6 @@ class ShiftTaskModel(Base):
     shift_start_datetime = Column(DateTime(timezone=True))
     shift_end_datetime = Column(DateTime(timezone=True))
 
-    __table_args__ = (UniqueConstraint('batch_number',
-                                       'batch_date',
-                                       name='unique_batch_number_date'),)
+    __table_args__ = (
+        UniqueConstraint("batch_number", "batch_date", name="unique_batch_number_date"),
+    )

@@ -3,21 +3,20 @@ from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
-load_dotenv('python_env.env')
+load_dotenv("python_env.env")
 
-USER = os.getenv('USER')
-PASSWORD = os.getenv('PASSWORD')
-HOST = os.getenv('HOST')
-PORT = os.getenv('PORT')
-DATABASE_NAME = os.getenv('DATABASE_NAME')
+USER = os.getenv("USER")
+PASSWORD = os.getenv("PASSWORD")
+HOST = os.getenv("HOST")
+PORT = os.getenv("PORT")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
 
-DATABASE_URL = (f"postgresql+asyncpg://"
-                f"{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE_NAME}")
+DATABASE_URL = (
+    f"postgresql+asyncpg://" f"{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE_NAME}"
+)
 engine = create_async_engine(DATABASE_URL, echo=True)
 
-AsyncSessionLocal = sessionmaker(engine,
-                                 class_=AsyncSession,
-                                 expire_on_commit=False)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 async def get_db() -> AsyncSession:
