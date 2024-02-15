@@ -26,7 +26,6 @@ class ShiftTask(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
-        extra = Extra.forbid
 
 
 class ProductData(BaseModel):
@@ -38,7 +37,6 @@ class ProductData(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
-        extra = Extra.forbid
 
 
 class ShiftTaskChange(BaseModel):
@@ -54,6 +52,3 @@ class ShiftTaskChange(BaseModel):
     rc_identifier: Optional[str] = Field(None)
     shift_start_datetime: Optional[datetime] = Field(None)
     shift_end_datetime: Optional[datetime] = Field(None)
-
-    class Config:
-        extra = Extra.forbid
